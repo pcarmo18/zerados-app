@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>ZERADOS | Buscar Jogos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="flex items-center gap-2 mb-12 px-2">
+            <span class="material-symbols-outlined text-yellow-500 text-4xl font-bold drop-shadow-md">sports_esports</span>
+            <h2 class="text-3xl font-black italic tracking-tighter fire-text" style="font-family: 'Rajdhani', sans-serif;">ZERADOS</h2>
+        </div>
+        <nav class="flex-1">
+            <a href="index.html" class="nav-item"><span class="material-symbols-outlined">grid_view</span> Início</a>
+            <a href="buscar.html" class="nav-item active"><span class="material-symbols-outlined">search</span> Buscar Jogos</a>
+            <a href="competitivo.html" class="nav-item"><span class="material-symbols-outlined">trophy</span> Competitivo</a>
+            <a href="amigos.html" class="nav-item"><span class="material-symbols-outlined">group</span> Amigos</a>
+            <div class="pt-6 mt-4 border-t border-white/5"><a href="doacao.html" class="nav-item support-btn justify-center font-black"><span class="material-symbols-outlined animate-bounce">volunteer_activism</span> APOIAR</a></div>
+        </nav>
+        <div class="mt-auto flex flex-col gap-2">
+            <a href="perfil.html" class="nav-item"><span class="material-symbols-outlined">person</span> Meu Perfil</a>
+            <button onclick="logout()" class="nav-item hover:bg-red-500/10 hover:text-red-500 border border-transparent hover:border-red-500/20"><span class="material-symbols-outlined">logout</span> Sair</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="mb-10"><h1 class="text-4xl font-black uppercase tracking-tight italic text-white" style="font-family: 'Rajdhani', sans-serif;">Biblioteca Global</h1><p class="text-slate-400 font-medium">Explore a base de dados, veja sinopses e análises.</p></header>
+        
+        <div class="glass-card mb-12 flex items-center gap-4 px-8 border-yellow-500/30 shadow-lg shadow-yellow-900/10 focus-within:border-yellow-500 transition">
+            <span class="material-symbols-outlined text-yellow-500">search</span>
+            <input type="text" id="api-search-input" oninput="searchGameAPI(this.value)" placeholder="Pesquisar jogo (Ex: The Witcher)..." class="w-full bg-transparent py-4 outline-none text-xl font-bold !border-none !shadow-none">
+        </div>
+
+        <div id="api-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <p class="col-span-full text-center text-slate-500 italic mt-10">Digite algo para começar a explorar...</p>
+        </div>
+    </main>
+
+    <div id="modal-game-details" class="fixed inset-0 bg-black/95 hidden z-[3000] flex items-center justify-center p-4 backdrop-blur-md overflow-y-auto">
+        <div class="glass-card max-w-4xl w-full p-0 border-t-4 border-yellow-500 overflow-hidden flex flex-col relative my-auto">
+            <button onclick="closeModal('modal-game-details')" class="absolute top-4 right-4 z-20 bg-black/50 p-3 rounded-full hover:bg-white/10 transition text-white"><span class="material-symbols-outlined">close</span></button>
+            
+            <div id="game-details-content" class="relative">
+                <div class="p-20 text-center"><p class="text-yellow-500 animate-pulse font-bold">Carregando dados da matrix...</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-zerar" class="fixed inset-0 bg-black/90 hidden z-[2000] flex items-center justify-center p-4 backdrop-blur-sm"><div class="glass-card max-w-lg w-full p-8 border-t-4 border-yellow-500 space-y-6"><h4 class="text-2xl font-black italic text-yellow-500 uppercase">🏆 Registrar Vitória</h4><div class="space-y-4"><input type="text" id="win-game-title" readonly class="w-full p-4 rounded-xl outline-none text-yellow-500 font-bold text-xl bg-black/50 border border-yellow-500/20"><div class="grid grid-cols-2 gap-4"><input type="number" id="win-game-score" placeholder="Nota (0-10)" step="0.5" class="w-full p-4 rounded-xl outline-none"><select id="win-game-plat" class="w-full p-4 rounded-xl outline-none bg-black"><option>PC</option><option>PS5</option><option>Xbox</option><option>Switch</option></select></div><textarea id="win-game-comment" class="w-full p-4 rounded-xl h-24 resize-none outline-none" placeholder="Comentário..."></textarea></div><div class="flex gap-4"><button onclick="closeModal('modal-zerar')" class="flex-1 py-4 font-bold bg-white/5 hover:bg-white/10 rounded-2xl transition text-slate-300">Voltar</button><button onclick="confirmWin()" class="flex-1 py-4 font-bold bg-yellow-600 hover:bg-yellow-500 text-black rounded-2xl shadow-lg uppercase transition">Confirmar</button></div></div></div>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

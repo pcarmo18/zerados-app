@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>ZERADOS | Arena Competitiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="flex items-center gap-2 mb-12 px-2">
+            <span class="material-symbols-outlined text-yellow-500 text-4xl font-bold drop-shadow-md">sports_esports</span>
+            <h2 class="text-3xl font-black italic tracking-tighter fire-text" style="font-family: 'Rajdhani', sans-serif;">ZERADOS</h2>
+        </div>
+        <nav class="flex-1">
+            <a href="index.html" class="nav-item"><span class="material-symbols-outlined">grid_view</span> Início</a>
+            <a href="buscar.html" class="nav-item"><span class="material-symbols-outlined">search</span> Buscar Jogos</a>
+            <a href="competitivo.html" class="nav-item active"><span class="material-symbols-outlined">trophy</span> Competitivo</a>
+            <a href="amigos.html" class="nav-item"><span class="material-symbols-outlined">group</span> Amigos</a>
+            <div class="pt-6 mt-4 border-t border-white/5"><a href="doacao.html" class="nav-item support-btn justify-center font-black"><span class="material-symbols-outlined animate-bounce">volunteer_activism</span> APOIAR</a></div>
+        </nav>
+        <div class="mt-auto flex flex-col gap-2">
+            <a href="perfil.html" class="nav-item"><span class="material-symbols-outlined">person</span> Meu Perfil</a>
+            <button onclick="logout()" class="nav-item hover:bg-red-500/10 hover:text-red-500 border border-transparent hover:border-red-500/20"><span class="material-symbols-outlined">logout</span> Sair</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="flex justify-between items-end mb-12">
+            <div><h1 class="text-4xl font-black uppercase tracking-tight italic text-white" style="font-family: 'Rajdhani', sans-serif;">Arena Competitiva</h1><p class="text-slate-400 font-medium">Dashboard de alta performance.</p></div>
+            <button onclick="newRank()" class="bg-yellow-600 hover:bg-yellow-500 text-black px-6 py-4 rounded-2xl font-black flex items-center gap-2 transition uppercase italic text-sm shadow-xl"><span class="material-symbols-outlined">add_moderator</span> Adicionar Rank</button>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+                 <h3 class="flex items-center gap-2 font-bold uppercase text-xs tracking-widest text-yellow-500/70">
+                    <span class="material-symbols-outlined text-sm">military_tech</span> Suas Patentes Ativas
+                </h3>
+                <div id="comp-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+            </div>
+            <div class="space-y-6">
+                 <h3 class="flex items-center gap-2 font-bold uppercase text-xs tracking-widest text-yellow-500/70">
+                    <span class="material-symbols-outlined text-sm">trending_up</span> Mais Jogados no Server
+                </h3>
+                <div id="global-comp-ranking-container" class="glass-card"></div>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal-elo" class="fixed inset-0 bg-black/90 hidden z-[2000] flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="glass-card max-w-md w-full p-8 border-t-4 border-yellow-500 space-y-6">
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-yellow-500">military_tech</span><h4 class="text-2xl font-black italic text-yellow-500 uppercase">⚡ Atualizar Status</h4></div>
+            <div class="space-y-4">
+                <div class="relative">
+                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Buscar Jogo Competitivo</label>
+                    <input type="text" id="comp-game-search" oninput="searchCompGame(this.value)" class="w-full p-4 rounded-xl outline-none text-white bg-black border border-white/10 focus:border-yellow-500 transition" placeholder="Ex: Valorant, CS2...">
+                    <div id="comp-search-results" class="absolute left-0 right-0 mt-2 rounded-xl overflow-hidden hidden z-[2001] shadow-2xl bg-black border border-yellow-500/30"></div>
+                    <input type="hidden" id="comp-selected-title">
+                    <input type="hidden" id="comp-game-img">
+                    <p id="comp-selected-display" class="text-yellow-500 text-sm font-bold mt-2 text-center italic hidden">Selecionado: <span></span></p>
+                </div>
+                <div>
+                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Selecione o Elo / Patente</label>
+                    <select id="comp-rank-select" class="w-full p-4 rounded-xl outline-none bg-black border border-white/10 text-white font-bold focus:border-yellow-500 transition appearance-none">
+                        <option value="" disabled selected>Selecione o Tier...</option>
+                        <optgroup label="Tiers Iniciais"><option value="Ferro">Ferro (Iron)</option><option value="Bronze">Bronze</option><option value="Prata">Prata (Silver)</option></optgroup>
+                        <optgroup label="Tiers Intermediários"><option value="Ouro">Ouro (Gold)</option><option value="Platina">Platina (Platinum)</option><option value="Diamante">Diamante (Diamond)</option></optgroup>
+                        <optgroup label="High Elo"><option value="Mestre/Ascendente">Mestre / Ascendente</option><option value="Grão-Mestre/Imortal">Grão-Mestre / Imortal</option><option value="Desafiante/Radiante">Desafiante / Radiante</option></optgroup>
+                        <optgroup label="Outros"><option value="Unranked / MD10">Unranked / MD10</option><option value="Outro (Específico)">Outro (Rank Específico)</option></optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="flex gap-4 pt-2"><button onclick="closeModal('modal-elo')" class="flex-1 py-4 font-bold bg-white/5 hover:bg-white/10 rounded-2xl transition text-slate-300">Voltar</button><button onclick="saveCompElo()" class="flex-1 py-4 font-bold bg-yellow-600 hover:bg-yellow-500 text-black rounded-2xl shadow-lg uppercase transition">Salvar Rank</button></div>
+        </div>
+    </div>
+    
+    <div id="modal-view-friend" class="fixed inset-0 bg-black/95 hidden z-[2000] flex items-center justify-center p-4 backdrop-blur-md"><div class="glass-card max-w-4xl w-full p-0 border-t-4 border-yellow-500 overflow-hidden flex flex-col max-h-[90vh]"><div class="p-8 bg-gradient-to-r from-yellow-500/20 to-transparent flex items-center gap-6 border-b border-white/5 relative"><div id="friend-avatar" class="w-24 h-24 bg-black border-2 border-yellow-500 rounded-full flex items-center justify-center text-4xl font-black text-yellow-500 overflow-hidden"></div><div><h2 id="friend-name" class="text-4xl font-black italic uppercase text-white">...</h2><p class="text-slate-400 font-bold flex items-center gap-2 mt-1">Status: <span id="friend-status-text" class="text-yellow-500 italic">...</span></p><p id="friend-joined" class="text-xs text-slate-500 uppercase tracking-widest mt-2">Membro desde: ...</p></div><button onclick="closeModal('modal-view-friend')" class="absolute top-4 right-4 bg-white/5 p-3 rounded-full hover:bg-white/10 transition"><span class="material-symbols-outlined">close</span></button></div><div class="p-8 overflow-y-auto space-y-8 flex-1 custom-scrollbar"><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="glass-card p-4 bg-black/30"><h5 class="flex items-center gap-2 text-xs font-black text-slate-500 uppercase tracking-widest mb-4"><span class="material-symbols-outlined text-sm text-yellow-500">memory</span> Setup</h5><div id="friend-setup" class="space-y-2 text-sm"></div></div><div class="glass-card p-4 bg-black/30"><h5 class="flex items-center gap-2 text-xs font-black text-slate-500 uppercase tracking-widest mb-4"><span class="material-symbols-outlined text-sm text-yellow-500">gamepad</span> Plataformas</h5><div id="friend-platforms" class="flex flex-wrap gap-2"></div></div></div><div><h5 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-4">Competitivo</h5><div id="friend-ranks" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div></div><div><h5 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-4">Jogos Zerados Recentemente</h5><div id="friend-games" class="space-y-3"></div></div></div></div></div>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>ZERADOS | Painel Central</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="flex items-center gap-2 mb-12 px-2">
+            <span class="material-symbols-outlined text-yellow-500 text-4xl font-bold drop-shadow-md">sports_esports</span>
+            <h2 class="text-3xl font-black italic tracking-tighter fire-text" style="font-family: 'Rajdhani', sans-serif;">ZERADOS</h2>
+        </div>
+        <nav class="flex-1">
+            <a href="index.html" class="nav-item active"><span class="material-symbols-outlined">grid_view</span> Início</a>
+            <a href="buscar.html" class="nav-item"><span class="material-symbols-outlined">search</span> Buscar Jogos</a>
+            <a href="competitivo.html" class="nav-item"><span class="material-symbols-outlined">trophy</span> Competitivo</a>
+            <a href="amigos.html" class="nav-item"><span class="material-symbols-outlined">group</span> Amigos</a>
+            <div class="pt-6 mt-4 border-t border-white/5"><a href="doacao.html" class="nav-item support-btn justify-center font-black"><span class="material-symbols-outlined animate-bounce">volunteer_activism</span> APOIAR</a></div>
+        </nav>
+        <div class="mt-auto flex flex-col gap-2">
+            <a href="perfil.html" class="nav-item"><span class="material-symbols-outlined">person</span> Meu Perfil</a>
+            <button onclick="logout()" class="nav-item hover:bg-red-500/10 hover:text-red-500 border border-transparent hover:border-red-500/20"><span class="material-symbols-outlined">logout</span> Sair</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-12 gap-6">
+            <div class="flex items-center gap-4">
+                <div id="user-avatar" class="w-16 h-16 border-2 border-yellow-500 bg-black rounded-2xl flex items-center justify-center text-3xl font-black text-yellow-500 shadow-lg overflow-hidden"></div>
+                <div><h1 class="text-4xl font-black uppercase tracking-tight italic text-white" style="font-family: 'Rajdhani', sans-serif;">Olá, <span id="welcome-user" class="text-yellow-500">Gamer</span></h1><p class="text-slate-400 font-medium text-sm">Bem-vindo ao seu QG de comando.</p></div>
+            </div>
+            <div class="flex flex-wrap gap-4">
+                <button onclick="openModal('modal-status')" class="relative bg-black/50 hover:bg-yellow-500/10 border-2 border-yellow-500/30 hover:border-yellow-500 text-white pr-6 pl-4 py-2 rounded-2xl font-bold flex items-center gap-4 transition-all shadow-lg shadow-yellow-500/5 backdrop-blur-md group overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-500/20 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out z-0"></div>
+                    <div class="relative z-10">
+                        <span class="material-symbols-outlined text-3xl text-yellow-500 group-hover:text-white transition-colors group-hover:animate-pulse transform group-hover:scale-110 duration-300">gamepad</span>
+                        <span class="absolute top-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-black rounded-full animate-pulse"></span>
+                    </div>
+                    <div class="text-left relative z-10">
+                        <p class="text-[9px] text-yellow-500/80 uppercase font-black tracking-widest mb-0.5">Missão Atual</p>
+                        <p id="current-status-display" class="text-sm italic text-white font-bold group-hover:text-yellow-500 transition truncate max-w-[140px] leading-tight drop-shadow-sm">Definir Status...</p>
+                    </div>
+                </button>
+                
+                <button onclick="openModal('modal-wishlist')" class="bg-fuchsia-600/20 hover:bg-fuchsia-600/40 text-fuchsia-400 border border-fuchsia-500/50 px-4 py-3 rounded-xl font-black flex items-center gap-2 transition uppercase italic text-sm shadow-lg" title="Lista de Desejos"><span class="material-symbols-outlined">favorite</span> Lista de Desejos</button>
+                <button onclick="openModal('modal-backlog')" class="bg-orange-600/20 hover:bg-orange-600/40 text-orange-400 border border-orange-500/50 px-4 py-3 rounded-xl font-black flex items-center gap-2 transition uppercase italic text-sm shadow-lg" title="Gaveta"><span class="material-symbols-outlined">layers</span> Gaveta</button>
+                <button onclick="openModal('modal-zerar')" class="bg-yellow-600 hover:bg-yellow-500 text-black px-6 py-3 rounded-xl font-black flex items-center gap-2 transition uppercase italic text-sm shadow-xl"><span class="material-symbols-outlined">workspace_premium</span> Zerei!</button>
+            </div>
+        </header>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+                <h3 class="flex items-center gap-2 font-bold uppercase text-xs tracking-widest text-yellow-500/70">
+                    <span class="material-symbols-outlined text-sm">public</span> Feed da Comunidade
+                </h3>
+                <div id="feed-container" class="space-y-4"></div>
+            </div>
+            <div class="space-y-8">
+                <div>
+                    <h3 class="flex items-center gap-2 font-bold uppercase text-xs tracking-widest text-yellow-500/70 mb-4">
+                        <span class="material-symbols-outlined text-sm">globe_asia</span> Top 5 Global (Melhores Notas)
+                    </h3>
+                    <div class="glass-card" id="ranking-container"></div>
+                </div>
+                <div>
+                    <h3 class="flex items-center gap-2 font-bold uppercase text-xs tracking-widest text-yellow-500/70 mb-4">
+                        <span class="material-symbols-outlined text-sm">military_tech</span> Líderes em Jogos Zerados
+                    </h3>
+                    <div class="glass-card" id="most-games-beaten-ranking"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal-zerar" class="fixed inset-0 bg-black/90 hidden z-[2000] flex items-center justify-center p-4 backdrop-blur-sm"><div class="glass-card max-w-lg w-full p-8 border-t-4 border-yellow-500 space-y-6"><h4 class="text-2xl font-black italic text-yellow-500 uppercase">🏆 Registrar Vitória</h4><div class="space-y-4"><div class="relative"><label class="text-[10px] font-black text-slate-500 uppercase">Procurar Jogo</label><input type="text" id="modal-search-input" oninput="searchInModal(this.value, 'zerar')" class="w-full p-4 rounded-xl outline-none" placeholder="Digite o nome..."><div id="modal-search-results-zerar" class="absolute left-0 right-0 mt-2 rounded-xl overflow-hidden hidden z-[2001] shadow-2xl bg-black border border-yellow-500/30"></div><input type="hidden" id="win-game-title"><input type="hidden" id="win-game-img"></div><div class="grid grid-cols-2 gap-4"><input type="number" id="win-game-score" placeholder="Nota (0-10)" step="0.5" class="w-full p-4 rounded-xl outline-none"><select id="win-game-plat" class="w-full p-4 rounded-xl outline-none bg-black border border-white/10 text-white"><option>PC</option><option>PS5</option><option>Xbox</option><option>Switch</option></select></div><textarea id="win-game-comment" class="w-full p-4 rounded-xl h-24 resize-none outline-none" placeholder="Comentário..."></textarea></div><div class="flex gap-4"><button onclick="closeModal('modal-zerar')" class="flex-1 py-4 font-bold bg-white/5 hover:bg-white/10 rounded-2xl transition text-slate-300">Voltar</button><button onclick="confirmWin()" class="flex-1 py-4 font-bold bg-yellow-600 hover:bg-yellow-500 text-black rounded-2xl shadow-lg uppercase transition">Confirmar</button></div></div></div>
+    
+    <div id="modal-status" class="fixed inset-0 bg-black/90 hidden z-[2000] flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="glass-card max-w-md w-full p-8 border-t-4 border-yellow-500 space-y-6">
+            <h4 class="text-2xl font-black italic text-yellow-500 uppercase">🎮 O que está jogando?</h4>
+            <div class="relative space-y-4">
+                <input type="text" id="status-input" oninput="searchStatusGame(this.value)" class="w-full p-4 rounded-xl outline-none text-white font-bold text-xl text-center placeholder-slate-600 border border-white/10 focus:border-yellow-500 transition" placeholder="Buscar Jogo...">
+                <input type="hidden" id="status-game-img">
+                <select id="status-plat-select" class="w-full p-3 rounded-xl outline-none bg-black border border-white/10 text-white text-center font-bold">
+                    <option value="PC">PC</option><option value="PS5">PS5</option><option value="Xbox">Xbox Series X/S</option><option value="Switch">Nintendo Switch</option><option value="Mobile">Mobile</option>
+                </select>
+                <div id="status-search-results" class="absolute left-0 right-0 mt-2 rounded-xl overflow-hidden hidden z-[2001] shadow-2xl bg-black border border-yellow-500/30"></div>
+            </div>
+            <div class="flex gap-4"><button onclick="closeModal('modal-status')" class="flex-1 py-4 font-bold bg-white/5 rounded-2xl text-slate-300 hover:text-white transition">Cancelar</button><button onclick="saveStatus()" class="flex-1 py-4 font-bold bg-yellow-600 hover:bg-yellow-500 text-black rounded-2xl transition">Confirmar</button></div>
+        </div>
+    </div>
+
+    <div id="modal-view-friend" class="fixed inset-0 bg-black/95 hidden z-[2000] flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="glass-card max-w-4xl w-full p-0 border-t-4 border-yellow-500 overflow-hidden flex flex-col max-h-[90vh] relative">
+            <div id="modal-friend-header-bg" class="absolute inset-0 h-48 bg-cover bg-center z-0 opacity-0 transition-opacity duration-700"></div>
+            <div class="relative z-10 p-8 bg-gradient-to-b from-black/80 via-black/95 to-black flex items-center gap-6 border-b border-white/5">
+                <div id="friend-avatar" class="w-24 h-24 bg-black border-2 border-yellow-500 rounded-full flex items-center justify-center text-4xl font-black text-yellow-500 overflow-hidden shadow-2xl"></div>
+                <div>
+                    <h2 id="friend-name" class="text-4xl font-black italic uppercase text-white drop-shadow-lg">...</h2>
+                    <p class="text-slate-100 font-bold flex items-center gap-2 mt-1 drop-shadow-md">Status: <span id="friend-status-text" class="text-yellow-500 italic">...</span></p>
+                    <p id="friend-joined" class="text-xs text-slate-300 uppercase tracking-widest mt-2 drop-shadow">Membro desde: ...</p>
+                </div>
+                <button onclick="closeModal('modal-view-friend')" class="absolute top-4 right-4 bg-black/50 p-3 rounded-full hover:bg-white/10 transition text-white"><span class="material-symbols-outlined">close</span></button>
+            </div>
+            <div class="p-8 overflow-y-auto space-y-8 flex-1 custom-scrollbar relative z-10 bg-black/90">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="glass-card p-4 bg-black/30"><h5 class="flex items-center gap-2 text-xs font-black text-slate-500 uppercase tracking-widest mb-4"><span class="material-symbols-outlined text-sm text-yellow-500">memory</span> Setup</h5><div id="friend-setup" class="space-y-2 text-sm"></div></div><div class="glass-card p-4 bg-black/30"><h5 class="flex items-center gap-2 text-xs font-black text-slate-500 uppercase tracking-widest mb-4"><span class="material-symbols-outlined text-sm text-yellow-500">gamepad</span> Plataformas</h5><div id="friend-platforms" class="flex flex-wrap gap-2"></div></div></div><div><h5 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-4">Competitivo</h5><div id="friend-ranks" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div></div><div><h5 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-4">Jogos Zerados Recentemente</h5><div id="friend-games" class="space-y-3"></div></div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-share" class="fixed inset-0 bg-black/95 hidden z-[3000] flex items-center justify-center p-4 backdrop-blur-md"><div class="glass-card max-w-md w-full p-6 border-t-4 border-yellow-500 flex flex-col items-center"><h4 class="text-2xl font-black italic text-yellow-500 uppercase mb-2 animate-pulse">✨ Conquista Desbloqueada!</h4><p class="text-slate-400 text-sm mb-6 text-center">Compartilhe sua vitória com a comunidade.</p><div id="share-capture-area" class="w-full max-w-[400px] shadow-2xl mb-6"><img id="share-bg" src="" class="share-bg-image"><div class="share-overlay"></div><div class="share-content"><h2 id="share-game-title" class="text-3xl font-black italic text-white uppercase leading-tight drop-shadow-lg mb-4">Nome do Jogo</h2><div class="share-score-box"><span id="share-game-score">10</span><span class="text-2xl">/10</span></div><p id="share-user-nick" class="text-yellow-500 font-bold uppercase tracking-widest text-sm">Zerado por: Gamer</p><div class="share-footer"><span>ZERADOS.APP</span><span class="material-symbols-outlined">sports_esports</span></div></div></div><div class="flex gap-4 w-full"><button onclick="closeModal('modal-share')" class="flex-1 py-3 font-bold bg-white/5 hover:bg-white/10 rounded-xl transition text-slate-300">Fechar</button><button onclick="downloadShareCard()" id="btn-download-share" class="flex-1 py-3 font-bold bg-yellow-600 hover:bg-yellow-500 text-black rounded-xl shadow-lg uppercase transition flex items-center justify-center gap-2"><span class="material-symbols-outlined">download</span> Baixar Imagem</button></div></div></div>
+    <div id="modal-backlog" class="fixed inset-0 bg-black/90 hidden z-[2000] flex items-center justify-center p-4 backdrop-blur-sm"><div class="glass-card max-w-md w-full p-8 border-t-4 border-orange-500 space-y-6"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-orange-500">layers</span><h4 class="text-2xl font-black italic text-orange-500 uppercase">Gaveta</h4></div><p class="text-slate-400 text-sm">Jogos pendentes que você já possui.</p><div class="relative"><input type="text" id="backlog-search-input" oninput="searchInModal(this.value, 'backlog')" class="w-full p-4 rounded-xl outline-none text-white border-orange-500/30 focus:border-orange-500 transition" placeholder="Buscar jogo..."><div id="modal-search-results-backlog" class="absolute left-0 right-0 mt-2 rounded-xl overflow-hidden hidden z-[2001] shadow-2xl bg-black border border-orange-500/30"></div><input type="hidden" id="backlog-game-title"><input type="hidden" id="backlog-game-img"></div><div class="flex gap-4 pt-2"><button onclick="closeModal('modal-backlog')" class="flex-1 py-4 font-bold bg-white/5 hover:bg-white/10 rounded-2xl transition text-slate-300">Cancelar</button><button onclick="confirmBacklog()" class="flex-1 py-4 font-bold bg-orange-600 hover:bg-orange-500 text-black rounded-2xl shadow-lg uppercase transition">Guardar na Gaveta</button></div></div></div>
+    <div id="modal-wishlist" class="fixed inset-0 bg-black/90 hidden z-[2000] flex items-center justify-center p-4 backdrop-blur-sm"><div class="glass-card max-w-md w-full p-8 border-t-4 border-fuchsia-500 space-y-6"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-fuchsia-500">favorite</span><h4 class="text-2xl font-black italic text-fuchsia-500 uppercase">Lista de Desejos</h4></div><p class="text-slate-400 text-sm">Jogos que você quer comprar ou jogar no futuro.</p><div class="relative"><input type="text" id="wishlist-search-input" oninput="searchInModal(this.value, 'wishlist')" class="w-full p-4 rounded-xl outline-none text-white border-fuchsia-500/30 focus:border-fuchsia-500 transition" placeholder="Buscar jogo..."><div id="modal-search-results-wishlist" class="absolute left-0 right-0 mt-2 rounded-xl overflow-hidden hidden z-[2001] shadow-2xl bg-black border border-fuchsia-500/30"></div><input type="hidden" id="wishlist-game-title"><input type="hidden" id="wishlist-game-img"></div><div class="flex gap-4 pt-2"><button onclick="closeModal('modal-wishlist')" class="flex-1 py-4 font-bold bg-white/5 hover:bg-white/10 rounded-2xl transition text-slate-300">Cancelar</button><button onclick="confirmWishlist()" class="flex-1 py-4 font-bold bg-fuchsia-600 hover:bg-fuchsia-500 text-black rounded-2xl shadow-lg uppercase transition">Salvar Desejo</button></div></div></div>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

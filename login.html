@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZERADOS | Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>body { justify-content: center; align-items: center; }</style>
+</head>
+<body>
+    <div class="w-full max-w-[420px] px-4">
+        <div class="text-center mb-8">
+            <span class="material-symbols-outlined text-yellow-500 text-7xl mb-2 drop-shadow-[0_0_15px_rgba(234,179,8,0.5)]">sports_esports</span>
+            <h1 class="text-6xl font-black italic tracking-tighter fire-text" style="font-family: 'Rajdhani', sans-serif;">ZERADOS</h1>
+            <div class="typing-container mt-2">
+                <span class="text-slate-500 font-bold text-sm mr-2">></span>
+                <span id="typewriter-text"></span><span class="cursor"></span>
+            </div>
+        </div>
+        <div class="glass-card border-t-4 border-yellow-500 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-yellow-500 shadow-[0_0_30px_5px_rgba(234,179,8,0.5)]"></div>
+            <h2 id="form-title" class="text-3xl font-black italic text-white uppercase mb-6 text-center">Iniciar Sessão</h2>
+            <div class="space-y-5">
+                <div class="group"><label class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Nickname</label><div class="relative"><span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-yellow-500 transition">person</span><input type="text" id="login-user" placeholder="Seu nick gamer" class="w-full pl-12 pr-4 py-4 rounded-xl outline-none text-white border border-white/10 focus:border-yellow-500 bg-black/50 transition-all"></div></div>
+                <div class="group"><label class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Senha</label><div class="relative"><span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-yellow-500 transition">lock</span><input type="password" id="login-pass" placeholder="••••••••" class="w-full pl-12 pr-4 py-4 rounded-xl outline-none text-white border border-white/10 focus:border-yellow-500 bg-black/50 transition-all"></div></div>
+                <button onclick="handleAuth()" id="auth-btn" class="w-full bg-yellow-600 hover:bg-yellow-500 text-black font-black py-4 rounded-xl shadow-lg transition-all uppercase tracking-wider text-sm flex justify-center items-center gap-2"><span class="material-symbols-outlined">login</span> <span id="btn-text">Entrar na Base</span></button>
+            </div>
+            <div class="mt-8 text-center border-t border-white/5 pt-6">
+                <p id="toggle-text" class="text-slate-400 text-sm">Ainda não tem cadastro?</p>
+                <button onclick="toggleMode()" class="text-yellow-500 font-bold text-sm uppercase hover:text-white transition mt-1 border-b border-transparent hover:border-yellow-500 pb-0.5"><span id="toggle-btn-text">Criar conta gratuita</span></button>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

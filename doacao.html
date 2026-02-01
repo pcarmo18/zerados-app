@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>ZERADOS | Apoie o Projeto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="flex items-center gap-2 mb-12 px-2">
+            <span class="material-symbols-outlined text-yellow-500 text-4xl font-bold drop-shadow-md">sports_esports</span>
+            <h2 class="text-3xl font-black italic tracking-tighter fire-text" style="font-family: 'Rajdhani', sans-serif;">ZERADOS</h2>
+        </div>
+        <nav class="flex-1">
+            <a href="index.html" class="nav-item"><span class="material-symbols-outlined">grid_view</span> Início</a>
+            <a href="buscar.html" class="nav-item"><span class="material-symbols-outlined">search</span> Buscar Jogos</a>
+            <a href="competitivo.html" class="nav-item"><span class="material-symbols-outlined">trophy</span> Competitivo</a>
+            <a href="amigos.html" class="nav-item"><span class="material-symbols-outlined">group</span> Amigos</a>
+            <div class="pt-6 mt-4 border-t border-white/5"><a href="doacao.html" class="nav-item support-btn justify-center font-black active"><span class="material-symbols-outlined animate-bounce">volunteer_activism</span> APOIAR</a></div>
+        </nav>
+        <div class="mt-auto flex flex-col gap-2">
+            <a href="perfil.html" class="nav-item"><span class="material-symbols-outlined">person</span> Meu Perfil</a>
+            <button onclick="logout()" class="nav-item hover:bg-red-500/10 hover:text-red-500 border border-transparent hover:border-red-500/20"><span class="material-symbols-outlined">logout</span> Sair</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="text-center mb-12 space-y-4">
+            <span class="inline-block py-1 px-3 rounded-full bg-yellow-500/10 border border-yellow-500 text-yellow-500 text-[10px] font-black uppercase tracking-widest mb-2">Mantenha a chama acesa</span>
+            <h1 class="text-5xl font-black uppercase italic tracking-tight text-white" style="font-family: 'Rajdhani', sans-serif;">Dê um <span class="fire-text">Buff</span> no ZERADOS</h1>
+            <p class="text-slate-400 font-medium max-w-2xl mx-auto text-lg">Este projeto é 100% independente. Sua doação garante servidores online e novas features.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-5xl mx-auto">
+            <div class="glass-card border-t-4 border-yellow-500 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><span class="material-symbols-outlined text-9xl text-yellow-500">qr_code_2</span></div>
+                <h3 class="text-2xl font-black italic uppercase text-white mb-6 flex items-center gap-2"><span class="material-symbols-outlined text-yellow-500">pix</span> Via PIX (Instantâneo)</h3>
+                <div class="bg-white p-4 rounded-xl w-48 h-48 mx-auto mb-8 shadow-lg shadow-yellow-500/20 flex items-center justify-center overflow-hidden">
+                    <img src="pix.png" alt="QR Code Pix" class="w-full h-full object-contain" onerror="this.src='https://via.placeholder.com/200x200/000000/FFFFFF/?text=Sem+Imagem'">
+                </div>
+                <div class="space-y-4">
+                    <p class="text-center text-slate-400 text-sm font-bold uppercase tracking-widest">Chave PIX (E-mail)</p>
+                    <div class="flex gap-2"><input type="text" value="soulfeus@gmail.com" id="pix-key-input" readonly class="w-full p-4 rounded-xl bg-black border border-yellow-500/30 text-yellow-500 text-center font-bold text-xl outline-none pix-key"><button onclick="copyPix()" class="bg-yellow-600 hover:bg-yellow-500 text-black p-4 rounded-xl font-bold shadow-lg transition flex items-center justify-center"><span class="material-symbols-outlined">content_copy</span></button></div>
+                    <p id="copy-feedback" class="text-center text-green-500 text-xs font-bold uppercase opacity-0 transition">E-mail copiado com sucesso!</p>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <h3 class="text-xl font-black text-slate-500 uppercase tracking-widest mb-4">Escolha seu Drop</h3>
+                <div class="glass-card p-6 flex items-center gap-4 hover:border-yellow-500 transition group cursor-pointer border border-white/5"><div class="w-12 h-12 bg-yellow-500/10 rounded-full flex items-center justify-center text-yellow-500 group-hover:bg-yellow-500 group-hover:text-black transition"><span class="material-symbols-outlined">coffee</span></div><div><h4 class="text-white font-bold text-lg">Cafézinho Dev</h4><p class="text-slate-400 text-sm">Ajuda a manter a energia.</p></div></div>
+                <div class="glass-card p-6 flex items-center gap-4 hover:border-yellow-500 transition group cursor-pointer border-l-4 border-yellow-500 bg-yellow-500/5"><div class="w-12 h-12 bg-yellow-500/10 rounded-full flex items-center justify-center text-yellow-500 group-hover:bg-yellow-500 group-hover:text-black transition"><span class="material-symbols-outlined">dns</span></div><div><h4 class="text-white font-bold text-lg">Server Boost</h4><p class="text-slate-400 text-sm">Garante que o site fique rápido.</p></div></div>
+                <div class="glass-card p-6 flex items-center gap-4 hover:border-purple-500 transition group cursor-pointer border border-white/5"><div class="w-12 h-12 bg-purple-500/10 rounded-full flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition"><span class="material-symbols-outlined">diamond</span></div><div><h4 class="text-white font-bold text-lg">Founder Pack</h4><p class="text-slate-400 text-sm">Ajuda no desenvolvimento de novas features.</p></div></div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
